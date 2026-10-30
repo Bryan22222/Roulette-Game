@@ -62,6 +62,7 @@ async function setup()
   //Red name tag
   Red = await loadImage('Images/Red.png')
   Red.resize(120,120)
+
 }
 
 //_____________________________________________________________________________
@@ -219,13 +220,3 @@ function healPlayer()
       currentPlayer = 1
     }
 }
-
-
-
-
-
-
-
-
-
-
