@@ -1,0 +1,4 @@
+if(mouesIsPressed)
+{
+    console.log("Hello world")
+}
