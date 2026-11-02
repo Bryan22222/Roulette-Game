@@ -79,20 +79,9 @@ function draw()
   //background
   image(backdrop, 0, 0);
 
-  //POVS
+  //POVS - you see the other player across the table
+  //red's turn = blue across the table
   if(currentPlayer === 1)
-  {
-    if(redHearts > 0)
-    {
-      image(RedGuyAlive, 300, 75);
-    }
-    else 
-    {
-      image(RedGuyDead, 300, 75)
-    }
-  }
-    
-  else if (currentPlayer === 2)
   {
     if(blueHearts > 0)
     {
@@ -104,11 +93,24 @@ function draw()
     }
   }
 
+  //blue's turn = red across the table
+  else if (currentPlayer === 2)
+  {
+    if(redHearts > 0)
+    {
+      image(RedGuyAlive, 300, 75);
+    }
+    else
+    {
+      image(RedGuyDead, 300, 75)
+    }
+  }
+
   //DISPLAYS HEARTS LEFT
   drawHearts()
 
   //Revolver
-  image(Revolver, 320, 280)
+  image(Revolver, 320, 220)
 
   //MedKit
   image(MedKit, 220, 270)
@@ -118,6 +120,9 @@ function draw()
 
   //Red name tag
   image(Red, 30, 140)
+
+  //SHOWS WHOSE TURN IT IS above their name tag
+  drawTurn()
 
   //Gun messages and shells left
   drawGun()
@@ -164,6 +169,29 @@ function keyPressed()
 
 
 
+//SHOWS WHOSE TURN IT IS ABOVE THEIR NAME TAG
+function drawTurn()
+{
+  stroke(0)
+  strokeWeight(3)
+  textAlign(CENTER, BOTTOM)
+  textSize(22)
+
+  if(currentPlayer === 1)
+  {
+    fill(255, 60, 60)
+    text("RED'S TURN", 90, 140)
+  }
+
+  else if (currentPlayer === 2)
+  {
+    fill(80, 140, 255)
+    text("BLUE'S TURN", 730, 150)
+  }
+
+  noStroke()
+}
+
 //KEEPS TRACK OF HEARTS PER PLAYER AND DRAWS THEM
 function drawHearts()
 {
@@ -189,44 +217,23 @@ function drawHearts()
 }
 
 //FUNCTION THAT RUNS IF PLAYER CHOOSES THE MED KIT
+//gives the current player one extra heart
 function healPlayer()
 {
-  let chance = random(100)
-
   if(currentPlayer === 1)
   {
-    if(chance < 50)
-    {
-      blueBonusHearts++
-      console.log("Bonus life awarded")
-    }
-    else
-    {
-      console.log("No bonus life awarded")
-    }
+    redBonusHearts++
+    gunMessage = "Red used the med kit: +1 heart!"
   }
 
   else if (currentPlayer === 2)
   {
-    if(chance < 50)
-    {
-      redBonusHearts++
-      console.log("Bonus life awarded")
-    }
-    else
-    {
-      console.log("No bonus life awarded")
-    }
+    blueBonusHearts++
+    gunMessage = "Blue used the med kit: +1 heart!"
   }
 
-  //ENDS THE PLAYERS TURN EXTRA OR NO EXTRA LIFE
-  if(currentPlayer === 1)
-    {
-      currentPlayer = 2
-    }
+  console.log(gunMessage)
 
-    else
-    {
-      currentPlayer = 1
-    }
+  //ENDS THE PLAYERS TURN
+  switchPlayer()
 }

@@ -156,10 +156,18 @@ function mousePressed()
     return;
   }
 
-  //clicked the revolver
-  if(mouseX > 320 && mouseX < 480 && mouseY > 280 && mouseY < 400)
+  //clicked the revolver (middle of the table)
+  if(mouseX > 350 && mouseX < 460 && mouseY > 260 && mouseY < 340)
   {
     gunPickedUp = !gunPickedUp;
+    return;
+  }
+
+  //clicked the med kit
+  if(mouseX > 250 && mouseX < 330 && mouseY > 325 && mouseY < 395)
+  {
+    gunPickedUp = false;
+    healPlayer();
     return;
   }
 
