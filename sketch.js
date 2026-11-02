@@ -63,6 +63,13 @@ async function setup()
   Red = await loadImage('Images/Red.png')
   Red.resize(120,120)
 
+  //Ammo shells
+  Ammo = await loadImage('Images/Amo.png')
+  Ammo.resize(30,30)
+
+  //puts a random amount of live and blank shells in the gun
+  loadGun()
+
 }
 
 //_____________________________________________________________________________
@@ -111,6 +118,9 @@ function draw()
 
   //Red name tag
   image(Red, 30, 140)
+
+  //Gun messages and shells left
+  drawGun()
   
 }
 
