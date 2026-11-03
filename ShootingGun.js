@@ -46,12 +46,30 @@ function loadGun()
 //FIRES THE NEXT SHELL. target is 1 for red or 2 for blue
 function shootGun(target)
 {
-  //takes the first shell out of the chamber
-  let isLive = chamber.shift();
-
   let shooterName = currentPlayer === 1 ? "Red" : "Blue";
   let targetName = target === 1 ? "Red" : "Blue";
   let shotSelf = target === currentPlayer;
+  let isInjured = false;
+
+  //CHECKS IF PLAYER HAS AN INJURED HAND SO THEY CAN'T SHOOT AND PREVENTS THE FUNCTION FROM RUNNING
+  if(currentPlayer === 1 )
+  {
+    isInjured = redDisabledTurns > 0;
+  }
+  else
+  {
+    isInjured = blueDisabledTurns > 0;
+  }
+
+  if(isInjured)
+  {
+    gunMessage = shooterName + " is injured and cannot shoot this turn.";
+    console.log(gunMessage);
+    return;
+  }
+
+  //takes the first shell out of the chamber
+  let isLive = chamber.shift();
 
   if(isLive)
   {
@@ -118,16 +136,28 @@ function takeDamage(player)
 //________________________________________________________________________________
 function switchPlayer()
 {
-  if(currentPlayer === 1)
+  if(currentPlayer === 1) 
   {
+    if(redDisabledTurns > 0)
+    {
+      redDisabledTurns--;
+      console.log("Red is is still healing for" + redDisabledTurns + "turns!")
+    }
+
     currentPlayer = 2;
   }
 
   else
   {
+    if(blueDisabledTurns > 0)
+    {
+      blueDisabledTurns--;
+      console.log("Blue is is still healing for" + blueDisabledTurns + "turns!")
+    }
+
     currentPlayer = 1;
   }
-}
+} 
 
 //________________________________________________________________________________
 function checkGameOver()
@@ -187,6 +217,15 @@ function mousePressed()
       shootGun(2);
     }
   }
+
+  //clicked the hammer
+  if(mouseX > 335 && mouseX < 510 && mouseY > 280 && mouseY < 455)
+  {
+    gunPickedUp = false;
+    UseHammer();
+    return;
+  }
+
 }
 
 //________________________________________________________________________________
@@ -204,7 +243,7 @@ function drawGun()
   //one ammo icon for each shell left (doesn't show which are live)
   for(let i = 0; i < chamber.length; i++)
   {
-    image(Ammo, width / 2 - (chamber.length * 35) / 2 + i * 35, 40);
+    image(Ammo, width / 2 - (chamber.length * 35) / 2 + i * 35, 35, 50, 50);
   }
 
   //when the gun is picked up, outline the name tags you can shoot

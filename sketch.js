@@ -67,6 +67,10 @@ async function setup()
   Ammo = await loadImage('Images/Amo.png')
   Ammo.resize(30,30)
 
+  //Hammer
+  Hammer = await loadImage('Images/Hammer.png')
+  Hammer.resize(175,175)
+
   //puts a random amount of live and blank shells in the gun
   loadGun()
 
@@ -78,6 +82,7 @@ function draw()
 {
   //background
   image(backdrop, 0, 0);
+  rect(275, 57, 270, 15)
 
   //POVS - you see the other player across the table
   //red's turn = blue across the table
@@ -120,6 +125,9 @@ function draw()
 
   //Red name tag
   image(Red, 30, 140)
+
+  //Hammer
+  image(Hammer, 335, 280)
 
   //SHOWS WHOSE TURN IT IS above their name tag
   drawTurn()
@@ -164,6 +172,11 @@ function keyPressed()
   if(key === 'h')
   {
     healPlayer()
+  }
+
+  if(key === 'm')
+  {
+    UseHammer()
   }
 }
 
@@ -216,24 +229,52 @@ function drawHearts()
   }
 }
 
+
 //FUNCTION THAT RUNS IF PLAYER CHOOSES THE MED KIT
 //gives the current player one extra heart
 function healPlayer()
 {
-  if(currentPlayer === 1)
+  //CHECK IF PLAYER ALREADY HAS A BONUS HEART
+  if(currentPlayer === 1 && redBonusHearts >= 1)
   {
-    redBonusHearts++
-    gunMessage = "Red used the med kit: +1 heart!"
+    gunMessage = "Red already has a bonus heart!";
   }
 
-  else if (currentPlayer === 2)
+  else if(currentPlayer === 2 && blueBonusHearts >= 1)
   {
-    blueBonusHearts++
-    gunMessage = "Blue used the med kit: +1 heart!"
+    gunMessage = "Blue already has a bonus heart!";
   }
 
-  console.log(gunMessage)
+  else
+  {
+    //50% CHANCE OF RECEIVING A BONUS HEART
+    let chance = random(100);
 
-  //ENDS THE PLAYERS TURN
-  switchPlayer()
+    if(chance < 50)
+    {
+      if(currentPlayer === 1)
+      {
+        redBonusHearts++;
+        gunMessage = "Red used the med kit: +1 heart!";
+      }
+
+      else
+      {
+        blueBonusHearts++;
+        gunMessage = "Blue used the med kit: +1 heart!";
+      }
+    }
+
+    else
+    {
+      gunMessage = currentPlayer === 1
+        ? "Red used the med kit: No luck!"
+        : "Blue used the med kit: No luck!";
+    }
+  }
+
+  console.log(gunMessage);
+
+  //ENDS THE PLAYER'S TURN
+  switchPlayer();
 }
