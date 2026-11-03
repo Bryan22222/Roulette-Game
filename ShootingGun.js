@@ -181,20 +181,24 @@ function checkGameOver()
 //CLICKING: revolver to pick up the gun, then a name tag to pick who to shoot
 function mousePressed()
 {
+  //converts the click from window pixels to the 800x400 grid
+  let gameMouseX = mouseX / gameScale;
+  let gameMouseY = mouseY / gameScale;
+
   if(gameOver)
   {
     return;
   }
 
   //clicked the revolver (middle of the table)
-  if(mouseX > 350 && mouseX < 460 && mouseY > 260 && mouseY < 340)
+  if(gameMouseX > 350 && gameMouseX < 460 && gameMouseY > 260 && gameMouseY < 340)
   {
     gunPickedUp = !gunPickedUp;
     return;
   }
 
   //clicked the med kit
-  if(mouseX > 250 && mouseX < 330 && mouseY > 325 && mouseY < 395)
+  if(gameMouseX > 250 && gameMouseX < 330 && gameMouseY > 325 && gameMouseY < 395)
   {
     gunPickedUp = false;
     healPlayer();
@@ -204,14 +208,14 @@ function mousePressed()
   if(gunPickedUp)
   {
     //clicked the red name tag
-    if(mouseX > 30 && mouseX < 150 && mouseY > 140 && mouseY < 260)
+    if(gameMouseX > 30 && gameMouseX < 150 && gameMouseY > 140 && gameMouseY < 260)
     {
       gunPickedUp = false;
       shootGun(1);
     }
 
     //clicked the blue name tag
-    else if(mouseX > 670 && mouseX < 790 && mouseY > 150 && mouseY < 270)
+    else if(gameMouseX > 670 && gameMouseX < 790 && gameMouseY > 150 && gameMouseY < 270)
     {
       gunPickedUp = false;
       shootGun(2);
@@ -219,7 +223,7 @@ function mousePressed()
   }
 
   //clicked the hammer
-  if(mouseX > 335 && mouseX < 510 && mouseY > 280 && mouseY < 455)
+  if(gameMouseX > 335 && gameMouseX < 510 && gameMouseY > 280 && gameMouseY < 455)
   {
     gunPickedUp = false;
     UseHammer();
@@ -238,12 +242,12 @@ function drawGun()
   strokeWeight(3);
   textAlign(CENTER, TOP);
   textSize(20);
-  text(gunMessage, width / 2, 10);
+  text(gunMessage, GAME_WIDTH / 2, 10);
 
   //one ammo icon for each shell left (doesn't show which are live)
   for(let i = 0; i < chamber.length; i++)
   {
-    image(Ammo, width / 2 - (chamber.length * 35) / 2 + i * 35, 35, 50, 50);
+    image(Ammo, GAME_WIDTH / 2 - (chamber.length * 35) / 2 + i * 35, 35, 50, 50);
   }
 
   //when the gun is picked up, outline the name tags you can shoot
@@ -258,7 +262,7 @@ function drawGun()
     noStroke();
     fill(255, 255, 0);
     textSize(16);
-    text("Click a name tag to shoot", width / 2, 75);
+    text("Click a name tag to shoot", GAME_WIDTH / 2, 75);
   }
 
   noStroke();

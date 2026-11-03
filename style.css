@@ -1,7 +1,14 @@
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
+  background: #000;
+}
+main {
+  display: flex;
+  min-height: 100%;
 }
 canvas {
   display: block;
+  margin: auto;
 }
