@@ -223,14 +223,14 @@ function mousePressed()
   }
 
   //clicked the hammer
-  if(gameMouseX > 335 && gameMouseX < 510 && gameMouseY > 280 && gameMouseY < 455)
+  if(gameMouseX > 335 && gameMouseX < 435 && gameMouseY > 280 && gameMouseY < 455)
   {
     gunPickedUp = false;
     UseHammer();
     return;
   }
 
-  if(mouseX > 440 && mouseX < 620 && mouseY > 260 && mouseY < 440)
+  if(gameMouseX > 440 && gameMouseX < 620 && gameMouseY > 260 && gameMouseY < 440)
   {
     gunPickedUp = false; 
     usePoison();

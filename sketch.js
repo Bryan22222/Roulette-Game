@@ -73,7 +73,6 @@ async function setup()
 
   //Poison
   Poison = await loadImage('Images/Poison.png')
-  Poison.resize(180,180)
 
   //puts a random amount of live and blank shells in the gun
   loadGun()
@@ -143,7 +142,7 @@ function draw()
   drawGun()
 
   //Poison
-  image(Poison, 400, 260)
+  image(Poison, 400, 260, 180, 180)
   
 }
 

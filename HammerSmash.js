@@ -23,7 +23,7 @@ function UseHammer()
 
     let chance = random(100)
 
-    if(chance < 30)
+    if(chance < 40)
     {
       gunMessage = "Blue dodged the Hammer!"
     }
@@ -47,7 +47,7 @@ function UseHammer()
 
     let chance = random(100)
 
-    if(chance < 30)
+    if(chance < 40)
     {
       gunMessage = "Red dodged the Hammer!"
     }
