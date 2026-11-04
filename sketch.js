@@ -14,6 +14,10 @@ let blueHearts = 2;
 let redBonusHearts = 0; 
 let blueBonusHearts = 0; 
 
+//Poison Statues
+let redPoisoned = false;
+let bluePoisoned = false;
+
 //SETUP
 //___________________________________________________________________________
 async function setup() 
@@ -70,6 +74,10 @@ async function setup()
   //Hammer
   Hammer = await loadImage('Images/Hammer.png')
   Hammer.resize(175,175)
+
+  //Poison
+  Poison = await loadImage('Images/Poison.png')
+  Poison.resize(180,180)
 
   //puts a random amount of live and blank shells in the gun
   loadGun()
@@ -134,6 +142,9 @@ function draw()
 
   //Gun messages and shells left
   drawGun()
+
+  //Poison
+  image(Poison, 400, 260)
   
 }
 
@@ -234,8 +245,19 @@ function drawHearts()
 //gives the current player one extra heart
 function healPlayer()
 {
+  //CHECKS TO SEE IF PLAYER IS POISONED 
+  if(currentPlayer === 1 && redPoisoned)
+  {
+    gunMessage = "Red is poisoned and cannot gain bonus hearts!"
+  }
+
+  else if(currentPlayer === 2 && bluePoisoned)
+  {
+    gunMessage = "Blue is poisoned and cannot gain bonus hearts!"
+  }
+
   //CHECK IF PLAYER ALREADY HAS A BONUS HEART
-  if(currentPlayer === 1 && redBonusHearts >= 1)
+  else if(currentPlayer === 1 && redBonusHearts >= 1)
   {
     gunMessage = "Red already has a bonus heart!";
   }

@@ -1,4 +1,14 @@
-if(mouseIsPressed && mouseX > 200 && mouseX < 250 && mouseY > 230 && mouseY < 280)
+/*if(currentPlayer === 1 && redPoisoned)
+  {
+    gunMessage = "Red is poisoned and cannot gain bonus hearts!"
+  }
+
+  else if(currentPlayer === 2 && bluePoisoned)
+  {
+    gunMessage = "Blue is poisoned and cannot gain bonus hearts!"
+  }
+
+  else
 {
   let chance = random(100)
 
@@ -38,4 +48,5 @@ if(mouseIsPressed && mouseX > 200 && mouseX < 250 && mouseY > 230 && mouseY < 28
     {
       currentPlayer = 1
     }
-}
+  }
+    */

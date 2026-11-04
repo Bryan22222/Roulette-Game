@@ -23,13 +23,13 @@ function UseHammer()
 
     let chance = random(100)
 
-    if(chance < 65)
+    if(chance < 30)
     {
       gunMessage = "Blue dodged the Hammer!"
     }
     else
     {
-      blueDisabledTurns = 2
+      blueDisabledTurns = 1
       gunMessage = "HAMMER HIT! Blue's hand is injured!"
     }
   }
@@ -45,15 +45,15 @@ function UseHammer()
 
     blueHammerUsed = true
 
-    let chance = random()
+    let chance = random(100)
 
-    if(chance < 65)
+    if(chance < 30)
     {
       gunMessage = "Red dodged the Hammer!"
     }
     else
     {
-      redDisabledTurns = 2;
+      redDisabledTurns = 1;
       gunMessage = "HAMMER HIT! Red's hand is injured!"
     }
   }
