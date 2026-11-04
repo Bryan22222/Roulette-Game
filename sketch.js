@@ -1,5 +1,10 @@
 //VARIABLES
 
+//the game is laid out on an 800x400 grid and scaled up to 1400x700 for laptop screens
+const GAME_WIDTH = 800;
+const GAME_HEIGHT = 400;
+const gameScale = 1.75;
+
 let currentPlayer = 1; 
 
 //PLAYER STATUS
@@ -22,58 +27,49 @@ let bluePoisoned = false;
 //___________________________________________________________________________
 async function setup() 
 {
-  createCanvas(800, 400);
+  createCanvas(GAME_WIDTH * gameScale, GAME_HEIGHT * gameScale);
+
+  //keeps the pixel art sharp when it gets scaled up
+  noSmooth();
 
   //background
   backdrop = await loadImage('/Images/backdrop.png');
 
   //loading image for red guy alive
   RedGuyAlive = await loadImage('Images/RedGuyAlive.png')
-  RedGuyAlive.resize(200,150);
 
   //loading red guy dead
   RedGuyDead = await loadImage('Images/RedGuyDead.png')
-  RedGuyDead.resize(200,150);
   
   //loading blue guy alive
   BlueGuyAlive = await loadImage('Images/BlueGuyAlive.png')
-  BlueGuyAlive.resize(200,150);
 
   //loading blue guy dead
   BlueGuyDead = await loadImage('Images/BlueGuyDead.png')
-  BlueGuyDead.resize(200,150);
 
   //First two lives
   Heart = await loadImage('Images/Heart.png')
-  Heart.resize(100, 100);
 
   //Extra lives
   ExtraHeart = await loadImage('Images/ExtraHeart.png')
-  ExtraHeart.resize(100,100);
 
   //Revolver
   Revolver = await loadImage('Images/Revolver.png')
-  Revolver.resize(160,160)
 
   //Medkit
   MedKit = await loadImage('Images/MedKit.png')
-  MedKit.resize(140,140)
 
   //Blue name tag
   Blue = await loadImage('Images/Blue.png')
-  Blue.resize(120,120)
 
   //Red name tag
   Red = await loadImage('Images/Red.png')
-  Red.resize(120,120)
 
   //Ammo shells
   Ammo = await loadImage('Images/Amo.png')
-  Ammo.resize(30,30)
 
   //Hammer
   Hammer = await loadImage('Images/Hammer.png')
-  Hammer.resize(175,175)
 
   //Poison
   Poison = await loadImage('Images/Poison.png')
@@ -88,8 +84,11 @@ async function setup()
 //DRAW
 function draw()
 {
+  //everything below is drawn on the 800x400 grid
+  scale(gameScale);
+
   //background
-  image(backdrop, 0, 0);
+  image(backdrop, 0, 0, GAME_WIDTH, GAME_HEIGHT);
   rect(275, 57, 270, 15)
 
   //POVS - you see the other player across the table
@@ -98,11 +97,11 @@ function draw()
   {
     if(blueHearts > 0)
     {
-      image(BlueGuyAlive, 300, 75)
+      image(BlueGuyAlive, 300, 75, 200, 150)
     }
     else
     {
-      image(BlueGuyDead, 300, 75)
+      image(BlueGuyDead, 300, 75, 200, 150)
     }
   }
 
@@ -111,11 +110,11 @@ function draw()
   {
     if(redHearts > 0)
     {
-      image(RedGuyAlive, 300, 75);
+      image(RedGuyAlive, 300, 75, 200, 150);
     }
     else
     {
-      image(RedGuyDead, 300, 75)
+      image(RedGuyDead, 300, 75, 200, 150)
     }
   }
 
@@ -123,19 +122,19 @@ function draw()
   drawHearts()
 
   //Revolver
-  image(Revolver, 320, 220)
+  image(Revolver, 320, 220, 160, 160)
 
   //MedKit
-  image(MedKit, 220, 270)
+  image(MedKit, 220, 270, 140, 140)
 
   //Blue name tag
-  image(Blue, 670, 150)
+  image(Blue, 670, 150, 120, 120)
 
   //Red name tag
-  image(Red, 30, 140)
+  image(Red, 30, 140, 120, 120)
 
   //Hammer
-  image(Hammer, 335, 280)
+  image(Hammer, 335, 280, 175, 175)
 
   //SHOWS WHOSE TURN IT IS above their name tag
   drawTurn()
@@ -221,22 +220,22 @@ function drawHearts()
 {
   for(let i = 0; i < redHearts; i++)
   {
-    image(Heart, i * 60, 300)
+    image(Heart, i * 60, 300, 100, 100)
   }
 
   for(let i = 0; i < blueHearts; i++)
   {
-    image (Heart, 700 - (i * 60), 300)
+    image (Heart, 700 - (i * 60), 300, 100, 100)
   }
 
   for(let i = 0; i < redBonusHearts; i++)
   {
-    image(ExtraHeart, 30 + (i * 60), 245)
+    image(ExtraHeart, 30 + (i * 60), 245, 100, 100)
   }
 
   for(let i = 0; i < blueBonusHearts; i++)
   {
-    image(ExtraHeart, 670 - (i * 60), 245)
+    image(ExtraHeart, 670 - (i * 60), 245, 100, 100)
   }
 }
 
